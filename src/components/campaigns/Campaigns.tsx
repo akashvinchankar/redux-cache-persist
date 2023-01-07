@@ -2,7 +2,7 @@ import React from 'react';
 import { useFetchCampaignsQuery } from '../../features/campaign/campaignsSlice';
 import { Link } from 'react-router-dom';
 import Schedules from './Schedules';
-import { persistor } from '../../app/store';
+// import { persistor } from '../../app/store';
 
 import { useDispatch } from 'react-redux';
 import { createAction } from '@reduxjs/toolkit';
@@ -92,13 +92,13 @@ const Campaigns = () => {
               })}
             </tbody>
           </table>
-          <button
+          {/* <button
             onClick={() => {
               persistor.purge();
             }}
           >
             Purge Storage
-          </button>
+          </button> */}
 
           <button onClick={handleClick}>Clear Cache</button>
           <Schedules />
