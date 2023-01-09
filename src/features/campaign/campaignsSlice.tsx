@@ -11,13 +11,13 @@ export interface OrdersResponse {
 export const campaignsSlice = createApi({
   reducerPath: 'campaignsSlice',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://admin-api.staging.qubeslate.com/api/v0/orders/page/1',
+    baseUrl: 'https://admin-api.staging.qubeslate.com/api/v0/orders/page/',
   }),
   serializeQueryArgs: (query: any) => query.queryArgs,
   keepUnusedDataFor: 28800,
   endpoints: (builder) => ({
-    fetchCampaigns: builder.query<OrdersResponse, void>({
-      query: () => '',
+    fetchCampaigns: builder.query<OrdersResponse, number>({
+      query: (page) => `${page}`,
     }),
   }),
 });

@@ -2,7 +2,7 @@ import React from 'react';
 import { useFetchCampaignsQuery } from '../../features/campaign/campaignsSlice';
 
 const Schedules = () => {
-  const { data, isLoading, isFetching, isSuccess } = useFetchCampaignsQuery();
+  const { data, isLoading, isFetching, isSuccess } = useFetchCampaignsQuery(1);
 
   return (
     <div>
