@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFetchCampaignsQuery } from '../../features/campaign/campaignsSlice';
 import { Link } from 'react-router-dom';
-import Schedules from './Schedules';
+// import Schedules from './Schedules';
 // import { persistor } from '../../app/store';
+import { useNavigate } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 import { createAction } from '@reduxjs/toolkit';
@@ -11,17 +12,22 @@ import { createAction } from '@reduxjs/toolkit';
 const clearCache = createAction('cache/clear');
 
 const Campaigns = () => {
-  const { data, error, isLoading, isFetching, isSuccess } =
-    useFetchCampaignsQuery();
+  const [page, setPage] = useState(1);
 
-  console.log(data);
-  console.log(isLoading, isFetching);
+  const { data, error, isLoading, isFetching, isSuccess, refetch } =
+    useFetchCampaignsQuery(page);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // clear cache
   function handleClick() {
     dispatch(clearCache());
+  }
+
+  function handleRefetch() {
+    // force re-fetches the data
+    refetch();
   }
 
   return (
@@ -31,6 +37,7 @@ const Campaigns = () => {
       {error && <h2>Something went wrong</h2>}
       {isSuccess && (
         <>
+          <button onClick={() => navigate(`/campaigns/xyz`)}>Schedules</button>
           <table>
             <thead>
               <tr>
@@ -101,7 +108,12 @@ const Campaigns = () => {
           </button> */}
 
           <button onClick={handleClick}>Clear Cache</button>
-          <Schedules />
+          <br />
+          <button onClick={() => setPage(page - 1)}>Prev Page</button>
+          <button onClick={() => setPage(page + 1)}>Next Page</button>
+          <br />
+          <button onClick={handleRefetch}>Refetch</button>
+          {/* <Schedules /> */}
         </>
       )}
     </div>
